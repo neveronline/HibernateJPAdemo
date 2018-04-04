@@ -1,4 +1,4 @@
-package guru.springframework.spring5webapp;
+package guru.springframework.spring5webapp.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,9 +14,10 @@ import java.util.Set;
  */
 @Entity
 public class Book {
+    // IDNTITY 保证了ID Value 不串表
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer bookId;
     private String title;
     private String ISBN;
     private String publisher;
@@ -51,12 +52,12 @@ public class Book {
 
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getBookId() {
+        return bookId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
     }
 
     public String getTitle() {
@@ -81,5 +82,34 @@ public class Book {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    // equal hashcode 主要用于set 判断两个object 是否需要去重
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Book book = (Book) o;
+
+        return bookId != null ? bookId.equals(book.bookId) : book.bookId == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return bookId != null ? bookId.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookId=" + bookId +
+                ", title='" + title + '\'' +
+                ", ISBN='" + ISBN + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", authors=" + authors +
+                '}';
     }
 }

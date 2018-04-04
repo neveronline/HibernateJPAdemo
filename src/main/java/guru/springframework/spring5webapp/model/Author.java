@@ -1,4 +1,4 @@
-package guru.springframework.spring5webapp;
+package guru.springframework.spring5webapp.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -15,9 +15,18 @@ import java.util.Set;
 @Entity
 public class Author {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer Id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer authorId;
     private String firstName;
+
+    public Integer getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
+    }
+
     private String LastName;
 
     @ManyToMany(mappedBy = "authors")
@@ -37,13 +46,6 @@ public class Author {
         this.books = books;
     }
 
-    public Integer getId() {
-        return Id;
-    }
-
-    public void setId(Integer id) {
-        Id = id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -67,5 +69,30 @@ public class Author {
 
     public void setBooks(Set<Book> books) {
         this.books = books;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Author author = (Author) o;
+
+        return authorId != null ? authorId.equals(author.authorId) : author.authorId == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return authorId != null ? authorId.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "authorId=" + authorId +
+                ", firstName='" + firstName + '\'' +
+                ", LastName='" + LastName + '\'' +
+                ", books=" + books +
+                '}';
     }
 }

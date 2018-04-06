@@ -21,6 +21,9 @@ public class Publisher {
     private String name;
     private String info;
 
+    public Publisher() {
+    }
+
     public Integer getId() {
         return id;
     }

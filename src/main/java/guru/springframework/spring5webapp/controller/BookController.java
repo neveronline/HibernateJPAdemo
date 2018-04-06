@@ -1,0 +1,27 @@
+package guru.springframework.spring5webapp.controller;
+
+import guru.springframework.spring5webapp.repository.BookRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * Author: Leo
+ * Email: haojun02@meituan.com
+ * Date:4/6/18
+ * Time:9:40 PM
+ * ------------------------------------
+ * Desc:
+ */
+@Controller
+public class BookController {
+    @Autowired
+    private BookRepository bookRepository;
+
+    @RequestMapping("/books")
+    public String getBooks(Model model) {
+        model.addAttribute("books", bookRepository.findAll());
+        return "books";
+    }
+}
